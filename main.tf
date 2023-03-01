@@ -112,3 +112,28 @@ resource "aws_iam_role_policy_attachment" "lambda_logs" {
   role = aws_iam_role.role.name
   policy_arn = aws_iam_policy.logging.arn
 }
+
+resource "aws_api_gateway_method_settings" "api_settings" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  stage_name = "prod"
+  method_path = "${var.resource_integration}/${var.http_method_integration}"
+
+  settings = jsonencode({
+    "response_parameters" = {
+      "method.response.header.Access-Control-Allow-Headers" = true,
+      "method.response.header.Access-Control-Allow-Methods" = true,
+      "method.response.header.Access-Control-Allow-Origin" = true
+    },
+    "method_responses" = [{
+      "status_code" = "200",
+      "response_models" = {
+        "application/json" = "Empty"
+      },
+      "response_parameters" = {
+        "method.response.header.Access-Control-Allow-Headers" = true,
+        "method.response.header.Access-Control-Allow-Methods" = true,
+        "method.response.header.Access-Control-Allow-Origin" = true
+      }
+    }]
+  })
+}
