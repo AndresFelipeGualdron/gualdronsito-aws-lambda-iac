@@ -64,3 +64,13 @@ resource "aws_iam_role" "role" {
   name               = var.name_role
   assume_role_policy = data.aws_iam_policy_document.assume_role.json
 }
+
+resource "aws_api_gateway_deployment" "andrea-app-api-deployment" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+}
+
+resource "aws_api_gateway_stage" "andrea-app-api-prod-stage" {
+  deployment_id = aws_api_gateway_deployment.andrea-app-api-deployment.id
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  stage_name = "prod"
+}
