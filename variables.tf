@@ -24,10 +24,6 @@ variable "lambda_runtime" {
   type = string
 }
 
-variable "path_lambdazip" {
-  type = string
-}
-
 variable "name_role" {
   
 }
