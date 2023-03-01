@@ -118,22 +118,22 @@ resource "aws_api_gateway_method_settings" "api_settings" {
   stage_name = "prod"
   method_path = "${var.resource_integration}/${var.http_method_integration}"
 
-  settings = jsonencode({
-    "loggingLevel" : "INFO",
-    "metricsEnabled" : true,
-    "throttlingBurstLimit" : 5000,
-    "throttlingRateLimit" : 10000,
-    "cachingEnabled" : true,
-    "cacheTtlInSeconds" : 300,
-    "cacheDataEncrypted" : true,
-    "requireAuthorizationForCacheControl" : false,
-    "unauthorizedCacheControlHeaderStrategy" : "SUCCEED_WITH_RESPONSE_HEADER",
-    "cacheKeyParameters" : ["method.request.path.id", "method.request.querystring.q"],
-    "cors" : {
-        "allowMethods" : ["OPTIONS", "POST"],
-        "allowHeaders" : ["*"],
-        "allowOrigins" : ["*"],
-        "maxAge" : 3000
+  settings = {
+    loggingLevel : "INFO",
+    metricsEnabled : true,
+    throttlingBurstLimit : 5000,
+    throttlingRateLimit : 10000,
+    cachingEnabled : true,
+    cacheTtlInSeconds : 300,
+    cacheDataEncrypted : true,
+    requireAuthorizationForCacheControl : false,
+    unauthorizedCacheControlHeaderStrategy : "SUCCEED_WITH_RESPONSE_HEADER",
+    cacheKeyParameters : ["method.request.path.id", "method.request.querystring.q"],
+    cors : {
+        allowMethods : ["OPTIONS", "POST"],
+        allowHeaders : ["*"],
+        allowOrigins : ["*"],
+        maxAge : 3000
     }
-  })
+  }
 }
