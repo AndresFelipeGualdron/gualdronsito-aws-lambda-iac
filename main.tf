@@ -17,12 +17,28 @@ resource "aws_api_gateway_method" "method" {
   authorization = "NONE"
 }
 
+resource "aws_api_gateway_method" "method_options" {
+  rest_api_id   = aws_api_gateway_rest_api.api.id
+  resource_id   = aws_api_gateway_resource.resource.id
+  http_method   = "OPTIONS"
+  authorization = "NONE"
+}
+
 resource "aws_api_gateway_integration" "integration" {
   rest_api_id             = aws_api_gateway_rest_api.api.id
   resource_id             = aws_api_gateway_resource.resource.id
   http_method             = aws_api_gateway_method.method.http_method
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
+  uri                     = aws_lambda_function.lambda.invoke_arn
+}
+
+resource "aws_api_gateway_integration" "integration" {
+  rest_api_id             = aws_api_gateway_rest_api.api.id
+  resource_id             = aws_api_gateway_resource.resource.id
+  http_method             = aws_api_gateway_method.method_options.http_method
+  integration_http_method = "OPTIONS"
+  type                    = "MOCK"
   uri                     = aws_lambda_function.lambda.invoke_arn
 }
 
@@ -111,12 +127,4 @@ EOF
 resource "aws_iam_role_policy_attachment" "lambda_logs" {
   role = aws_iam_role.role.name
   policy_arn = aws_iam_policy.logging.arn
-}
-
-resource "aws_api_gateway_method_settings" "api_settings" {
-  rest_api_id = aws_api_gateway_rest_api.api.id
-  stage_name = "prod"
-  method_path = "${var.resource_integration}/${var.http_method_integration}"
-
-  settings = var.cors_settings
 }
