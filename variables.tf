@@ -10,8 +10,6 @@ variable "api_name" {
   type = string
 }
 
-variable "body" {}
-
 variable "lambda_name" {
   type = string
 }
