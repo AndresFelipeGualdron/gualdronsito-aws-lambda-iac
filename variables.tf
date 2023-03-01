@@ -39,3 +39,20 @@ variable "resource_integration" {
 variable "http_method_integration" {
   type = string
 }
+
+variable "cors_settings" {
+  type = any
+
+  default = {
+    "loggingLevel"       = "INFO"
+    "metricsEnabled"     = true
+    "loggingLevel"       = "INFO"
+    "throttlingBurstLimit" = 1000
+    "throttlingRateLimit" = 500
+    "cors" = {
+      "allowMethods" = ["OPTIONS", "POST", "GET"]
+      "allowHeaders" = ["Content-Type", "X-Amz-Date", "Authorization", "X-Api-Key", "X-Amz-Security-Token"]
+      "allowOrigins" = ["*"]
+    }
+  }
+}
