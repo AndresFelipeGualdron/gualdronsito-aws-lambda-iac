@@ -119,7 +119,7 @@ resource "aws_cloudwatch_log_group" "api_gateway_logging" {
 }
 
 resource "aws_cloudwatch_log_subscription_filter" "api_gateway_logs" {
-  name = "${lambda_name}_filter"
+  name = "api_gateway_log_filter"
   filter_pattern = ""
   log_group_name = aws_cloudwatch_log_group.api_gateway_logging.name
   destination_arn = aws_lambda_function.lambda.arn
