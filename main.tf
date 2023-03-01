@@ -114,7 +114,7 @@ resource "aws_iam_role_policy_attachment" "lambda_logs" {
 }
 
 resource "aws_cloudwatch_log_group" "api_gateway_logging" {
-  name = "api_gateway_logging_${var.lambda_name}"
+  name = "/aws/api_gateway${var.lambda_name}"
   retention_in_days = 1
 }
 
