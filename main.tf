@@ -112,15 +112,3 @@ resource "aws_iam_role_policy_attachment" "lambda_logs" {
   role = aws_iam_role.role.name
   policy_arn = aws_iam_policy.logging.arn
 }
-
-resource "aws_cloudwatch_log_group" "api_gateway_logging" {
-  name = "/aws/api_gateway/${var.lambda_name}"
-  retention_in_days = 1
-}
-
-resource "aws_cloudwatch_log_subscription_filter" "api_gateway_logs" {
-  name = "api_gateway_log_filter"
-  filter_pattern = ""
-  log_group_name = aws_cloudwatch_log_group.api_gateway_logging.name
-  destination_arn = aws_lambda_function.lambda.arn
-}
