@@ -38,10 +38,13 @@ resource "aws_lambda_permission" "apigw_lambda" {
 }
 
 resource "aws_lambda_function" "lambda" {
+  filename = "components/lambda-template/template.zip"
   function_name = var.lambda_name
   role          = aws_iam_role.role.arn
   handler       = var.lambda_handler
   runtime       = var.lambda_runtime
+
+  source_code_hash = filebase64sha256("components/lambda-template/template.zip")
 }
 
 # IAM
