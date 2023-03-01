@@ -117,7 +117,6 @@ resource "aws_api_gateway_method_settings" "api_settings" {
   rest_api_id = aws_api_gateway_rest_api.api.id
   stage_name = "prod"
   method_path = "${var.resource_integration}/${var.http_method_integration}"
-
   settings = jsonencode({
     "response_parameters" = {
       "method.response.header.Access-Control-Allow-Headers" = true,
