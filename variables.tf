@@ -33,3 +33,11 @@ variable "source_code_hash_lambda" {}
 variable "filename_lambda" {
   type = string
 }
+
+variable "resource_integration" {
+  type = string
+}
+
+variable "http_method_integration" {
+  type = string
+}
