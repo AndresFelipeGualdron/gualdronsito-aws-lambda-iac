@@ -120,7 +120,7 @@ resource "aws_cloudwatch_log_group" "api_gateway_logging" {
 
 resource "aws_cloudwatch_log_subscription_filter" "andrea_app_cloudwaatch_subscription" {
   name = "filter_${var.lambda_name}"
-  pattern = "$.level = 'ERROR'"
+  filter_pattern = "$.level = 'ERROR'"
   log_group_name = aws_cloudwatch_log_group.api_gateway_logging.name
   destination_arn = aws_api_gateway_rest_api.api.arn
 }
