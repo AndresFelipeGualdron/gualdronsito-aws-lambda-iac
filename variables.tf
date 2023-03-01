@@ -47,12 +47,5 @@ variable "cors_settings" {
     "loggingLevel"       = "INFO"
     "metricsEnabled"     = true
     "loggingLevel"       = "INFO"
-    "throttlingBurstLimit" = 1000
-    "throttlingRateLimit" = 500
-    "cors" = {
-      "allowMethods" = ["OPTIONS", "POST", "GET"]
-      "allowHeaders" = ["Content-Type", "X-Amz-Date", "Authorization", "X-Api-Key", "X-Amz-Security-Token"]
-      "allowOrigins" = ["*"]
-    }
   }
 }
