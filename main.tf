@@ -85,8 +85,8 @@ resource "aws_cloudwatch_log_group" "andrea-app-send-friend-request" {
   retention_in_days = 1
 }
 
-resource "aws_iam_policy" "lambda_logging" {
-  name        = "lambda_logging_${var.lambda_name}"
+resource "aws_iam_policy" "logging" {
+  name        = "logging"
   path        = "/"
   description = "IAM policy for logging from a lambda"
 
@@ -110,7 +110,7 @@ EOF
 
 resource "aws_iam_role_policy_attachment" "lambda_logs" {
   role = aws_iam_role.role.name
-  policy_arn = aws_iam_policy.lambda_logging.arn
+  policy_arn = aws_iam_policy.logging.arn
 }
 
 resource "aws_cloudwatch_log_group" "api_gateway_logging" {
@@ -118,9 +118,9 @@ resource "aws_cloudwatch_log_group" "api_gateway_logging" {
   retention_in_days = 1
 }
 
-resource "aws_cloudwatch_log_subscription_filter" "andrea_app_cloudwaatch_subscription" {
-  name = "filter_${var.lambda_name}"
-  filter_pattern = "$.level = 'ERROR'"
+resource "aws_cloudwatch_log_subscription_filter" "api_gateway_logs" {
+  name = "${lambda_name}_filter"
+  filter_pattern = ""
   log_group_name = aws_cloudwatch_log_group.api_gateway_logging.name
-  destination_arn = aws_api_gateway_rest_api.api.arn
+  destination_arn = aws_lambda_function.lambda.arn
 }
