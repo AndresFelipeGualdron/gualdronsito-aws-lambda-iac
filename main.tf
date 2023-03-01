@@ -25,15 +25,6 @@ resource "aws_api_gateway_integration" "integration" {
   integration_http_method = var.http_method_integration
   type                    = "AWS_PROXY"
   uri                     = aws_lambda_function.lambda.invoke_arn
-  passthrough_behavior = "WHEN_NO_TEMPLATES"
-  request_templates = {
-    "application/json" = jsonencode({
-      statusCode = "200",
-      headers    = {
-        "Access-Control-Allow-Origin" = "'*'"
-      }
-    })
-  }
 }
 
 # Lambda
