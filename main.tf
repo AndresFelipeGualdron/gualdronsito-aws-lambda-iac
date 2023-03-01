@@ -15,7 +15,7 @@ resource "aws_api_gateway_method" "method" {
   resource_id   = aws_api_gateway_resource.resource.id
   http_method   = var.http_method_integration
   authorization = "NONE"
-  api_key_required = "Not required"
+  api_key_required = false
 }
 
 resource "aws_api_gateway_integration" "integration" {
