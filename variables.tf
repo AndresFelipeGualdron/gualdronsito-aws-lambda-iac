@@ -25,5 +25,5 @@ variable "lambda_runtime" {
 }
 
 variable "name_role" {
-  
+  type = string
 }
