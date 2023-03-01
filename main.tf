@@ -44,6 +44,11 @@ resource "aws_lambda_function" "lambda" {
   runtime       = var.lambda_runtime
 
   source_code_hash = var.source_code_hash_lambda
+
+  depends_on = [
+    aws_iam_role_policy_attachment.lambda_logs,
+    aws_cloudwatch_log_group.andrea-app-send-friend-request,
+  ]
 }
 
 # IAM
@@ -73,4 +78,37 @@ resource "aws_api_gateway_stage" "andrea-app-api-prod-stage" {
   deployment_id = aws_api_gateway_deployment.andrea-app-api-deployment.id
   rest_api_id = aws_api_gateway_rest_api.api.id
   stage_name = "prod"
+}
+
+resource "aws_cloudwatch_log_group" "andrea-app-send-friend-request" {
+  name = var.lambda_name
+  retention_in_days = 1
+}
+
+resource "aws_iam_policy" "lambda_logging" {
+  name        = "lambda_logging"
+  path        = "/"
+  description = "IAM policy for logging from a lambda"
+
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": [
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+      ],
+      "Resource": "arn:aws:logs:*:*:*",
+      "Effect": "Allow"
+    }
+  ]
+}
+EOF
+}
+
+resource "aws_iam_role_policy_attachment" "lambda_logs" {
+  role = aws_iam_role.role.name
+  policy_arn = aws_iam_policy.lambda_logging.arn
 }
