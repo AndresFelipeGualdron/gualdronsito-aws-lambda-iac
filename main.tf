@@ -117,22 +117,23 @@ resource "aws_api_gateway_method_settings" "api_settings" {
   rest_api_id = aws_api_gateway_rest_api.api.id
   stage_name = "prod"
   method_path = "${var.resource_integration}/${var.http_method_integration}"
+
   settings = jsonencode({
-    "response_parameters" = {
-      "method.response.header.Access-Control-Allow-Headers" = true,
-      "method.response.header.Access-Control-Allow-Methods" = true,
-      "method.response.header.Access-Control-Allow-Origin" = true
-    },
-    "method_responses" = [{
-      "status_code" = "200",
-      "response_models" = {
-        "application/json" = "Empty"
-      },
-      "response_parameters" = {
-        "method.response.header.Access-Control-Allow-Headers" = true,
-        "method.response.header.Access-Control-Allow-Methods" = true,
-        "method.response.header.Access-Control-Allow-Origin" = true
-      }
-    }]
+    "loggingLevel" : "INFO",
+    "metricsEnabled" : true,
+    "throttlingBurstLimit" : 5000,
+    "throttlingRateLimit" : 10000,
+    "cachingEnabled" : true,
+    "cacheTtlInSeconds" : 300,
+    "cacheDataEncrypted" : true,
+    "requireAuthorizationForCacheControl" : false,
+    "unauthorizedCacheControlHeaderStrategy" : "SUCCEED_WITH_RESPONSE_HEADER",
+    "cacheKeyParameters" : ["method.request.path.id", "method.request.querystring.q"],
+    "cors" : {
+        "allowMethods" : ["OPTIONS", "POST"],
+        "allowHeaders" : ["*"],
+        "allowOrigins" : ["*"],
+        "maxAge" : 3000
+    }
   })
 }
