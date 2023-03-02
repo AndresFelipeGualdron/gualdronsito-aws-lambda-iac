@@ -18,10 +18,29 @@ resource "aws_api_gateway_method" "method" {
   api_key_required = false
 }
 
+resource "aws_api_gateway_method" "method_options" {
+  rest_api_id   = aws_api_gateway_rest_api.api.id
+  resource_id   = aws_api_gateway_resource.resource.id
+  http_method   = "OPTIONS"
+  authorization = "NONE"
+  api_key_required = false
+}
+
 resource "aws_api_gateway_method_response" "method_response" {
   rest_api_id = aws_api_gateway_rest_api.api.id
   resource_id = aws_api_gateway_resource.resource.id
   http_method = aws_api_gateway_method.method.http_method
+  status_code = "200"
+
+  response_models = {
+    "application/json" = "Empty"
+  }
+}
+
+resource "aws_api_gateway_method_response" "method_response_options" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  resource_id = aws_api_gateway_resource.resource.id
+  http_method = aws_api_gateway_method.method_options.http_method
   status_code = "200"
 
   response_models = {
@@ -45,6 +64,18 @@ resource "aws_api_gateway_integration_response" "response_integration" {
     aws_api_gateway_rest_api.api
   ]
 
+}
+
+resource "aws_api_gateway_integration_response" "response_integration_options" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  resource_id = aws_api_gateway_resource.resource.id
+  http_method = aws_api_gateway_method.method_options.http_method
+  status_code = "200"
+
+  depends_on = [
+    aws_api_gateway_rest_api.api
+  ]
+
   response_parameters = {
     "method.response.header.Access-Control-Allow-Origin" = "'*'"
     "method.response.header.Access-Control-Allow-Headers" = "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
@@ -60,12 +91,15 @@ resource "aws_api_gateway_integration" "integration" {
   integration_http_method = var.http_method_integration
   type                    = "AWS_PROXY"
   uri                     = aws_lambda_function.lambda.invoke_arn
+}
 
-  request_parameters = {
-    "integration.request.header.Access-Control-Allow-Origin" = "'*'"
-    "integration.request.header.Access-Control-Allow-Headers" = "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
-    "integration.request.header.Access-Control-Allow-Methods" = "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
-  }
+resource "aws_api_gateway_integration" "integration_options" {
+  rest_api_id             = aws_api_gateway_rest_api.api.id
+  resource_id             = aws_api_gateway_resource.resource.id
+  http_method             = aws_api_gateway_method.method_options.http_method
+  integration_http_method = "OPTIONS"
+  type                    = "MOCK"
+  uri                     = aws_lambda_function.lambda.invoke_arn
 }
 
 # Lambda
