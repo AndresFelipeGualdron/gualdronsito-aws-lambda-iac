@@ -232,6 +232,7 @@ resource "aws_iam_role_policy_attachment" "lambda_logs" {
 resource "aws_s3_bucket" "lambdas_bucket" {
   bucket = "lambdas"
   acl    = "private"
+  provider = aws.bucket
 
   tags = {
     Environment = "production"
