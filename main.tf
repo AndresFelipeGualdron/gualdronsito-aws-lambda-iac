@@ -23,21 +23,6 @@ resource "aws_api_gateway_method_response" "method_response" {
   resource_id = aws_api_gateway_resource.resource.id
   http_method = aws_api_gateway_method.method.http_method
   status_code = "200"
-
-  response_models = {
-    "application/json" = "Empty"
-  }
-
-  response_parameters = {
-    "method.response.header.Access-Control-Allow-Origin" = true,
-    "method.response.header.Access-Control-Allow-Methods" = true,
-    "method.response.header.Access-Control-Allow-Headers" = true,
-    "method.response.header.Content-Type" = true,
-    "method.response.header.X-Amzn-Trace-Id" = true,
-    "method.response.header.X-Request-Id" = true,
-    "method.response.header.Proxy" = true
-    "method.response.header.HTTPStatusProxy" = true
-  }
 }
 
 resource "aws_api_gateway_integration_response" "response_integration" {
