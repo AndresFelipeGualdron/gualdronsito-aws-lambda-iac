@@ -241,5 +241,5 @@ resource "aws_s3_bucket" "lambdas_bucket" {
 
 resource "aws_s3_bucket_object" "lambda_object" {
   bucket = aws_s3_bucket.lambdas_bucket.id
-  key    = "function.zip"
+  key    = "friend_request_lambda_andrea_app"
 }
