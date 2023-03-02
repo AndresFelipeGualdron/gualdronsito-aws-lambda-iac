@@ -111,13 +111,11 @@ resource "aws_lambda_permission" "apigw_lambda" {
 }
 
 resource "aws_lambda_function" "lambda" {
-  filename = var.filename_lambda
+  filename = aws_s3_bucket_object.lambda_object
   function_name = var.lambda_name
   role          = aws_iam_role.role.arn
   handler       = var.lambda_handler
   runtime       = var.lambda_runtime
-
-  source_code_hash = var.source_code_hash_lambda
 
   depends_on = [
     aws_iam_role_policy_attachment.lambda_logs,
@@ -215,7 +213,7 @@ resource "aws_s3_bucket" "lambdas_bucket" {
   }
 }
 
-resource "aws_s3_bucket_object" "example_object" {
+resource "aws_s3_bucket_object" "lambda_object" {
   bucket = aws_s3_bucket.example_bucket.id
   key    = "${var.lambda_name}_lambda_function"
 }
