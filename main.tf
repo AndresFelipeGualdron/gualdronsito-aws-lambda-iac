@@ -160,10 +160,10 @@ resource "aws_api_gateway_deployment" "andrea-app-api-deployment" {
   depends_on = [
     aws_api_gateway_rest_api.api,
     aws_api_gateway_resource.resource,
-      aws_api_gateway_method.method,
-      aws_api_gateway_method.method_options,
-      aws_api_gateway_integration.integration,
-      aws_api_gateway_integration.integration_options,
+    aws_api_gateway_method.method,
+    aws_api_gateway_method.method_options,
+    aws_api_gateway_integration.integration,
+    aws_api_gateway_integration.integration_options,
   ]
 }
 
