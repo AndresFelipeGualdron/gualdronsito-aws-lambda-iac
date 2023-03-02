@@ -98,6 +98,12 @@ resource "aws_api_gateway_integration" "integration_options" {
   resource_id             = aws_api_gateway_resource.resource.id
   http_method             = aws_api_gateway_method.method_options.http_method
   type                    = "MOCK"
+
+  request_templates = {
+    "application/json" = jsonencode({
+      "statusCode": 200
+    })
+  }
 }
 
 # Lambda
