@@ -205,3 +205,17 @@ resource "aws_iam_role_policy_attachment" "lambda_logs" {
   role = aws_iam_role.role.name
   policy_arn = aws_iam_policy.logging.arn
 }
+
+resource "aws_s3_bucket" "lambdas_bucket" {
+  bucket = "lambdas-bucket"
+  acl    = "private"
+
+  tags = {
+    Environment = "production"
+  }
+}
+
+resource "aws_s3_bucket_object" "example_object" {
+  bucket = aws_s3_bucket.example_bucket.id
+  key    = "${var.lambda_name}_lambda_function"
+}
