@@ -23,6 +23,10 @@ resource "aws_api_gateway_method_response" "method_response" {
   resource_id   = aws_api_gateway_resource.resource.id
   http_method = aws_api_gateway_method.method.http_method
   status_code = "200"
+
+  response_parameters = {
+    "method.response.header.HTTPStatusProxy" = true
+  }
 }
 
 resource "aws_api_gateway_integration" "integration" {
