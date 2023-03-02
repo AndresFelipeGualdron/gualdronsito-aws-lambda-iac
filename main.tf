@@ -110,6 +110,15 @@ resource "aws_lambda_permission" "apigw_lambda" {
   source_arn = "arn:aws:execute-api:${var.myregion}:${var.accountId}:${aws_api_gateway_rest_api.api.id}/*/${aws_api_gateway_method.method.http_method}${aws_api_gateway_resource.resource.path}"
 }
 
+resource "aws_lambda_permission" "bucket_lambda" {
+  statement_id  = "AllowExecutionFromS3Bucket"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.lambda.function_name
+  principal     = "s3.amazonaws.com"
+
+  source_arn = aws_s3_bucket.lambdas_bucket.arn
+}
+
 resource "aws_lambda_function" "lambda" {
   filename = aws_s3_bucket_object.lambda_object.id
   function_name = var.lambda_name
@@ -215,5 +224,5 @@ resource "aws_s3_bucket" "lambdas_bucket" {
 
 resource "aws_s3_bucket_object" "lambda_object" {
   bucket = aws_s3_bucket.lambdas_bucket.id
-  key    = "${var.lambda_name}_lambda_function"
+  key    = "${var.lambda_name}_lambda_function/"
 }
