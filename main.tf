@@ -208,7 +208,7 @@ resource "aws_iam_policy" "logging" {
     {
       "Effect": "Allow",
       "Action": ["s3:ListBucket"],
-      "Resource": ["arn:aws:s3:::lambdas-bucket"]
+      "Resource": ["arn:aws:s3:::${var.bucket_name}"]
     },
     {
       "Effect": "Allow",
@@ -217,7 +217,7 @@ resource "aws_iam_policy" "logging" {
           "s3:GetObject",
           "s3:DeleteObject"
       ],
-      "Resource": ["arn:aws:s3:::lambdas-bucket/*"]
+      "Resource": ["arn:aws:s3:::${var.bucket_name}/*"]
     }
   ]
 }
@@ -230,7 +230,7 @@ resource "aws_iam_role_policy_attachment" "lambda_logs" {
 }
 
 resource "aws_s3_bucket" "lambdas_bucket" {
-  bucket = "bucket-lambdas-gualdronsito"
+  bucket = var.bucket_name
   acl    = "private"
   provider = aws.bucket
 

@@ -39,3 +39,7 @@ variable "resource_integration" {
 variable "http_method_integration" {
   type = string
 }
+
+variable "bucket_name" {
+  type = string
+}
