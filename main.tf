@@ -125,11 +125,6 @@ resource "aws_lambda_function" "lambda" {
 
   s3_bucket = aws_s3_bucket_object.lambda_object.bucket
   s3_key = aws_s3_bucket_object.lambda_object.key
-
-  depends_on = [
-    aws_iam_role_policy_attachment.lambda_logs,
-    aws_cloudwatch_log_group.andrea-app-send-friend-request,
-  ]
 }
 
 # IAM
