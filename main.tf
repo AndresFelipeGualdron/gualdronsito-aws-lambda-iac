@@ -241,5 +241,5 @@ resource "aws_s3_bucket" "lambdas_bucket" {
 
 resource "aws_s3_bucket_object" "lambda_object" {
   bucket = aws_s3_bucket.lambdas_bucket.id
-  key    = "${var.lambda_name}_lambda_function/"
+  key    = "function.zip"
 }
