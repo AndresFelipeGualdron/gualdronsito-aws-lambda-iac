@@ -137,7 +137,6 @@ resource "aws_lambda_function" "lambda" {
   depends_on = [
     aws_iam_role_policy_attachment.lambda_logs,
     aws_cloudwatch_log_group.andrea-app-send-friend-request,
-    aws_s3_bucket.lambdas_bucket,
   ]
 }
 
@@ -243,6 +242,10 @@ resource "aws_s3_bucket" "lambdas_bucket" {
   tags = {
     Environment = "production"
   }
+
+  depends_on = [
+    aws_lambda_function.lambda,
+  ]
 }
 
 resource "aws_s3_bucket_object" "lambda_object" {
