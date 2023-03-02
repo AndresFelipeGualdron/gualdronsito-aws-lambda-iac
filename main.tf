@@ -25,7 +25,13 @@ resource "aws_api_gateway_method_response" "method_response" {
   status_code = "200"
 
   response_parameters = {
-    "method.response.header.HTTPStatusProxy" = true
+    "method.response.header.Access-Control-Allow-Origin" = true,
+    "method.response.header.Access-Control-Allow-Methods" = true,
+    "method.response.header.Access-Control-Allow-Headers" = true,
+    "method.response.header.Content-Type" = true,
+    "method.response.header.X-Amzn-Trace-Id" = true,
+    "method.response.header.X-Request-Id" = true,
+    "method.response.header.Proxy" = true
   }
 }
 
