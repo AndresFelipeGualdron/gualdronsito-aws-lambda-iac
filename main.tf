@@ -99,7 +99,6 @@ resource "aws_api_gateway_integration" "integration_options" {
   http_method             = aws_api_gateway_method.method_options.http_method
   integration_http_method = "OPTIONS"
   type                    = "MOCK"
-  uri                     = aws_lambda_function.lambda.invoke_arn
 }
 
 # Lambda
