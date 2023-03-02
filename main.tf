@@ -158,15 +158,6 @@ resource "aws_api_gateway_deployment" "andrea-app-api-deployment" {
       aws_api_gateway_integration.integration_options.id,
     ]))
   }
-
-  depends_on = [
-    aws_api_gateway_rest_api.api,
-    aws_api_gateway_resource.resource,
-    aws_api_gateway_method.method,
-    aws_api_gateway_method.method_options,
-    aws_api_gateway_integration.integration,
-    aws_api_gateway_integration.integration_options,
-  ]
 }
 
 resource "aws_api_gateway_stage" "andrea-app-api-prod-stage" {
