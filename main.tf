@@ -16,12 +16,6 @@ resource "aws_api_gateway_method" "method" {
   http_method   = var.http_method_integration
   authorization = "NONE"
   api_key_required = false
-
-  response_parameters = {
-    "method.response.header.Access-Control-Allow-Origin" = "'*'"
-    "method.response.header.Access-Control-Allow-Headers" = "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
-    "method.response.header.Access-Control-Allow-Methods" = "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
-  }
 }
 
 resource "aws_api_gateway_method_response" "method_response" {
@@ -43,6 +37,9 @@ resource "aws_api_gateway_method_response" "method_response" {
     "method.response.header.X-Request-Id" = true,
     "method.response.header.Proxy" = true
     "method.response.header.HTTPStatusProxy" = true
+    "method.response.header.Access-Control-Allow-Origin" = "'*'"
+    "method.response.header.Access-Control-Allow-Headers" = "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+    "method.response.header.Access-Control-Allow-Methods" = "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
   }
 }
 
