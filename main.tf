@@ -61,8 +61,7 @@ resource "aws_api_gateway_integration_response" "response_integration" {
   status_code = "200"
 
   depends_on = [
-    aws_api_gateway_rest_api.api,
-    aws_api_gateway_resource.resource,
+    aws_api_gateway_rest_api.api
   ]
 
 }
@@ -74,8 +73,7 @@ resource "aws_api_gateway_integration_response" "response_integration_options" {
   status_code = "200"
 
   depends_on = [
-    aws_api_gateway_rest_api.api,
-    aws_api_gateway_resource.resource,
+    aws_api_gateway_integration_response.response_integration
   ]
 
   response_parameters = {
