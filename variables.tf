@@ -26,8 +26,6 @@ variable "name_role" {
   type = string
 }
 
-variable "source_code_hash_lambda" {}
-
 variable "filename_lambda" {
   type = string
 }
