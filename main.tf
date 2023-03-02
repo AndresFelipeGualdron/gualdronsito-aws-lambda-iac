@@ -230,7 +230,7 @@ resource "aws_iam_role_policy_attachment" "lambda_logs" {
 }
 
 resource "aws_s3_bucket" "lambdas_bucket" {
-  bucket = "bucket-lambdas"
+  bucket = "bucket-lambdas-gualdronsito"
   acl    = "private"
   provider = aws.bucket
 
