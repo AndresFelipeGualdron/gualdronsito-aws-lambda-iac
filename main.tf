@@ -125,7 +125,7 @@ resource "aws_lambda_function" "lambda" {
   handler       = var.lambda_handler
   runtime       = var.lambda_runtime
 
-  s3_bucket = aws_s3_bucket_object.lambda_object
+  s3_bucket = aws_s3_bucket_object.lambda_object.bucket
   s3_key = aws_s3_bucket_object.lambda_object.key
 
   depends_on = [
