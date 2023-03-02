@@ -120,11 +120,13 @@ resource "aws_lambda_permission" "bucket_lambda" {
 }
 
 resource "aws_lambda_function" "lambda" {
-  filename = aws_s3_bucket_object.lambda_object.id
   function_name = var.lambda_name
   role          = aws_iam_role.role.arn
   handler       = var.lambda_handler
   runtime       = var.lambda_runtime
+
+  s3_bucket = aws_s3_bucket_object.lambda_object
+  s3_key = aws_s3_bucket_object.lambda_object.key
 
   depends_on = [
     aws_iam_role_policy_attachment.lambda_logs,
@@ -202,6 +204,20 @@ resource "aws_iam_policy" "logging" {
       ],
       "Resource": "arn:aws:logs:*:*:*",
       "Effect": "Allow"
+    },
+    {
+      "Effect": "Allow",
+      "Action": ["s3:ListBucket"],
+      "Resource": ["arn:aws:s3:::lambdas-bucket"]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+          "s3:PutObject",
+          "s3:GetObject",
+          "s3:DeleteObject"
+      ],
+      "Resource": ["arn:aws:s3:::lambdas-bucket/*"]
     }
   ]
 }
