@@ -146,6 +146,16 @@ resource "aws_iam_role" "role" {
 
 resource "aws_api_gateway_deployment" "andrea-app-api-deployment" {
   rest_api_id = aws_api_gateway_rest_api.api.id
+
+  triggers = {
+    redeployment = sha1(jsonencode([
+      aws_api_gateway_resource.resource.id,
+      aws_api_gateway_method.method.id,
+      aws_api_gateway_method.method_options.id,
+      aws_api_gateway_integration.integration.id,
+      aws_api_gateway_integration.integration_options.id,
+    ]))
+  }
 }
 
 resource "aws_api_gateway_stage" "andrea-app-api-prod-stage" {
