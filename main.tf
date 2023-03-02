@@ -46,9 +46,9 @@ resource "aws_api_gateway_integration_response" "response_integration" {
   ]
 
   response_parameters = {
-    "integration.request.header.Access-Control-Allow-Origin" = "'*'"
-    "integration.request.header.Access-Control-Allow-Headers" = "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
-    "integration.request.header.Access-Control-Allow-Methods" = "'OPTIONS,POST'"
+    "method.response.header.Access-Control-Allow-Origin" = "'*'"
+    "method.response.header.Access-Control-Allow-Headers" = "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+    "method.response.header.Access-Control-Allow-Methods" = "'OPTIONS,POST'"
   }
 
 }
