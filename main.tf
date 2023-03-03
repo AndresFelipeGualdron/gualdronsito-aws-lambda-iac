@@ -164,7 +164,6 @@ resource "aws_api_gateway_deployment" "andrea-app-api-deployment" {
 
   lifecycle {
     create_before_destroy = true
-    prevent_destroy = true
   }
 }
 
