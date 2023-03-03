@@ -160,6 +160,11 @@ resource "aws_api_gateway_deployment" "andrea-app-api-deployment" {
       aws_api_gateway_integration.integration_options.id,
     ]))
   }
+
+  lifecycle {
+    create_before_destroy = true
+    prevent_destroy = true
+  }
 }
 
 resource "aws_api_gateway_stage" "andrea-app-api-prod-stage" {
