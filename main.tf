@@ -170,7 +170,7 @@ resource "aws_api_gateway_deployment" "andrea-app-api-deployment" {
 resource "aws_api_gateway_stage" "andrea-app-api-prod-stage" {
   deployment_id = aws_api_gateway_deployment.andrea-app-api-deployment.id
   rest_api_id = aws_api_gateway_rest_api.api.id
-  stage_name = "prod"
+  stage_name = "production"
 }
 
 resource "aws_cloudwatch_log_group" "andrea-app-send-friend-request" {
