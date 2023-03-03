@@ -150,7 +150,7 @@ resource "aws_iam_role" "role" {
 
 resource "aws_api_gateway_deployment" "andrea_app_api_deployment_prod" {
   rest_api_id = aws_api_gateway_rest_api.api.id
-  description = "Change deployment"
+  description = "Change deployment update"
 
   triggers = {
     redeployment = sha1(jsonencode([
