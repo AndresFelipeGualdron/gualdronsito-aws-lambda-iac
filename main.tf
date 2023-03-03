@@ -148,7 +148,7 @@ resource "aws_iam_role" "role" {
   assume_role_policy = data.aws_iam_policy_document.assume_role.json
 }
 
-resource "aws_api_gateway_deployment" "andrea-app-api-deployment" {
+resource "aws_api_gateway_deployment" "andrea-app-api-deployment-prod" {
   rest_api_id = aws_api_gateway_rest_api.api.id
   description = "Change deployment"
 
