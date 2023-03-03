@@ -148,7 +148,7 @@ resource "aws_iam_role" "role" {
   assume_role_policy = data.aws_iam_policy_document.assume_role.json
 }
 
-resource "aws_api_gateway_deployment" "andrea-app-api-deployment-prod" {
+resource "aws_api_gateway_deployment" "andrea_app_api_deployment_prod" {
   rest_api_id = aws_api_gateway_rest_api.api.id
   description = "Change deployment"
 
@@ -168,7 +168,7 @@ resource "aws_api_gateway_deployment" "andrea-app-api-deployment-prod" {
 }
 
 resource "aws_api_gateway_stage" "andrea-app-api-stage-prod" {
-  deployment_id = aws_api_gateway_deployment.andrea-app-api-deployment.id
+  deployment_id = aws_api_gateway_deployment.andrea_app_api_deployment_prod.id
   rest_api_id = aws_api_gateway_rest_api.api.id
   stage_name = "prod"
 }
