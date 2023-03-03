@@ -97,7 +97,7 @@ resource "aws_api_gateway_integration" "integration_options" {
     })
   }
 
-  passthrough_behavior = "WHEN_NO_MATCH"
+  passthrough_behavior = "WHEN_NO_TEMPLATES"
 }
 
 # Lambda
