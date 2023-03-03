@@ -96,6 +96,8 @@ resource "aws_api_gateway_integration" "integration_options" {
       "statusCode": 200
     })
   }
+
+  passthrough_behavior = "WHEN_NO_TEMPLATES"
 }
 
 # Lambda
